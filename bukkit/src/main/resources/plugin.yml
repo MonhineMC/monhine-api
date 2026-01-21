@@ -1,0 +1,5 @@
+name: atw-api
+version: '1.0.0'
+main: me.vidosya.atwapi.AtwApi
+api-version: '1.20'
+authors: [vidosya]
