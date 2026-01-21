@@ -10,6 +10,9 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 
+/**
+ * @author Light_Gr3y
+ */
 public class ItemListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {

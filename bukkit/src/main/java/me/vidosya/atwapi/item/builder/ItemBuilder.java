@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
+/**
+ * @author Light_Gr3y
+ */
 @SuppressWarnings("unused")
 public class ItemBuilder {
     private final ItemMeta itemMeta;

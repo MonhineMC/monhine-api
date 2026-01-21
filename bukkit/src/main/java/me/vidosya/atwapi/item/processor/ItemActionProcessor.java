@@ -18,6 +18,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Light_Gr3y
+ */
 @UtilityClass
 public class ItemActionProcessor {
     private static final Map<String, ItemActions> actionMap = new HashMap<>();

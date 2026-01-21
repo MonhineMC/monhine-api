@@ -10,6 +10,9 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 
 import java.util.function.Consumer;
 
+/**
+ * @author Dwyur
+ */
 @Data
 public class ItemActions {
     // Данный класс был взят у моего хорошего друга https://github.com/Dwyur
