@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>commons</module>
+        <module>bukkit</module>
     </modules>
 
     <properties>
