@@ -1,5 +1,6 @@
 package me.lightgr3y.di.injector;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
 import me.lightgr3y.di.annotation.Inject;
 import me.lightgr3y.di.constructor.ConstructorSorter;
@@ -18,6 +19,8 @@ import java.util.Set;
 
 @SuppressWarnings("unused")
 public class AbstractDependencyInjector implements DependencyInjector {
+    @Getter
+    private Reflections reflections;
     private DependencyProvider provider;
 
     @Override
@@ -29,7 +32,7 @@ public class AbstractDependencyInjector implements DependencyInjector {
     public void init(@NotNull String basePackage) {
         provider.enable();
 
-        Reflections reflections = new Reflections(new ConfigurationBuilder()
+        reflections = new Reflections(new ConfigurationBuilder()
                 .setUrls(ClasspathHelper.forPackage(basePackage))
                 .setScanners(Scanners.ConstructorsAnnotated)
         );
