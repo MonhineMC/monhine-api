@@ -5,13 +5,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>me.lightgr3y</groupId>
-    <artifactId>atw-api</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>me.pjoh3</groupId>
+    <artifactId>monhine-api</artifactId>
+    <version>1.0</version>
   </parent>
 
   <name>bukkit</name>
-  <artifactId>atw-api-bukkit</artifactId>
+  <artifactId>monhine-api-bukkit</artifactId>
 
   <properties>
     <java.version>17</java.version>
@@ -19,6 +19,7 @@
   </properties>
 
   <build>
+    <finalName>MonhineMC-API-Bukkit</finalName>
     <defaultGoal>clean package</defaultGoal>
     <plugins>
       <plugin>
@@ -71,9 +72,9 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>me.lightgr3y</groupId>
-      <artifactId>atw-api-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <groupId>me.pjoh3</groupId>
+      <artifactId>monhine-api-common</artifactId>
+      <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>dev.rollczi</groupId>
