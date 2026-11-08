@@ -2,6 +2,7 @@ package me.pjoh3.monhinemc.item.processor;
 
 import lombok.experimental.UtilityClass;
 import me.pjoh3.monhinemc.item.action.ItemActions;
+import me.pjoh3.monhinemc.item.builder.ItemBuilder;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -70,5 +71,19 @@ public class ItemActionProcessor {
 
     public static void registerAction(@NotNull String uuid, @NotNull ItemActions actions) {
         actionMap.put(uuid, actions);
+    }
+
+    public static void unregisterAction(@NotNull ItemStack item) {
+        String uuid = ItemBuilder.getActionUuid(item);
+
+        if (uuid == null || uuid.isEmpty()) {
+            return;
+        }
+
+        unregisterAction(uuid);
+    }
+
+    public static void unregisterAction(@NotNull String uuid) {
+        actionMap.remove(uuid);
     }
 }

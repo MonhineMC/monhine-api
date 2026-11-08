@@ -19,7 +19,9 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,7 @@ public class ItemBuilder {
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     private final ItemActions actions = new ItemActions();
+    private static final NamespacedKey ACTION_UUID_KEY = NamespacedKey.minecraft("monhine_api_item_action_uuid");
 
     public ItemBuilder displayName(@NonNull String name) {
         itemMeta.displayName(miniMessage.deserialize(name));
@@ -55,9 +58,13 @@ public class ItemBuilder {
     }
 
     public ItemBuilder headOwner(@NonNull String value, @NonNull String signature) {
-        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "atw_custom_head");
+        if (!(itemMeta instanceof SkullMeta skullMeta)) {
+            throw new IllegalStateException("headOwner() requires a SKULL material");
+        }
+
+        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "monhine_custom_head");
         profile.setProperty(new ProfileProperty("textures", value, signature));
-        ((SkullMeta) itemMeta).setPlayerProfile(profile);
+        skullMeta.setPlayerProfile(profile);
         return this;
     }
 
@@ -94,6 +101,10 @@ public class ItemBuilder {
     protected ItemBuilder(@NonNull Material material) {
         itemStack = new ItemStack(material);
         itemMeta = itemStack.getItemMeta();
+
+        if (this.itemMeta == null) {
+            throw new IllegalArgumentException("Material " + material + " has no ItemMeta");
+        }
     }
 
     public static ItemBuilder builder(@NonNull Material material) {
@@ -101,10 +112,28 @@ public class ItemBuilder {
     }
 
     public ItemStack build() {
-        String uuid = String.valueOf(UUID.randomUUID());
-        itemMeta.getPersistentDataContainer().set(NamespacedKey.minecraft("atw_api_item_action_uuid"), PersistentDataType.STRING, uuid);
+        String uuid = UUID.randomUUID().toString();
+        itemMeta.getPersistentDataContainer().set(ACTION_UUID_KEY, PersistentDataType.STRING, uuid);
         itemStack.setItemMeta(itemMeta);
         ItemActionProcessor.registerAction(uuid, actions);
         return itemStack;
+    }
+
+    public static @Nullable String getActionUuid(@Nullable ItemStack itemStack) {
+        if (itemStack == null || itemStack.getType().isAir()) {
+            return null;
+        }
+
+        ItemMeta meta = itemStack.getItemMeta();
+        if (meta == null) {
+            return null;
+        }
+
+        PersistentDataContainer persistentDataContainer = meta.getPersistentDataContainer();
+        if (!persistentDataContainer.has(ACTION_UUID_KEY, PersistentDataType.STRING)) {
+            return null;
+        }
+
+        return persistentDataContainer.get(ACTION_UUID_KEY, PersistentDataType.STRING);
     }
 }
