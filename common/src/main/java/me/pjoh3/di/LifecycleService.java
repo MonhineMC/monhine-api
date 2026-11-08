@@ -6,5 +6,4 @@ package me.pjoh3.di;
 @SuppressWarnings("unused")
 public interface LifecycleService {
     default void enable() {}
-    default void disable() {}
 }

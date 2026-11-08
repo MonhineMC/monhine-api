@@ -25,18 +25,12 @@ import java.util.Set;
  * @author pjoh3
  */
 public class BukkitDependencyInjector extends AbstractDependencyInjector {
-    private final Plugin plugin;
-
     @Setter
     private LiteCommandsLocale liteCommandsLocale;
 
-    public BukkitDependencyInjector(Plugin plugin) {
-        this.plugin = plugin;
-    }
-
     @SuppressWarnings("all")
-    public void enable(@NotNull String basePackage, ClassLoader classLoader) {
-        init(basePackage, classLoader);
+    public void enable(@NotNull String basePackage, @NotNull Plugin plugin) {
+        init(basePackage);
 
         List<Object> liteCommandsArray = new ArrayList<>();
         DependencyContainer.getDependencyMap().forEach((aClass, object) -> {
