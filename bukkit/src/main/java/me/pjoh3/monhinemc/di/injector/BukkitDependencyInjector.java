@@ -35,8 +35,8 @@ public class BukkitDependencyInjector extends AbstractDependencyInjector {
     }
 
     @SuppressWarnings("all")
-    public void enable(@NotNull String basePackage) {
-        init(basePackage);
+    public void enable(@NotNull String basePackage, ClassLoader classLoader) {
+        init(basePackage, classLoader);
 
         List<Object> liteCommandsArray = new ArrayList<>();
         DependencyContainer.getDependencyMap().forEach((aClass, object) -> {

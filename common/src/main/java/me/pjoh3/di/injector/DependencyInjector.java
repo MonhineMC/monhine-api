@@ -7,5 +7,5 @@ import org.jetbrains.annotations.NotNull;
 public interface DependencyInjector {
     void setProvider(@NotNull DependencyProvider provider);
 
-    void init(@NotNull String basePackage);
+    void init(@NotNull String basePackage, ClassLoader classLoader);
 }

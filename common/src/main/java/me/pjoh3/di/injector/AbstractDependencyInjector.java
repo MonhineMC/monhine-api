@@ -29,11 +29,11 @@ public class AbstractDependencyInjector implements DependencyInjector {
     }
 
     @SneakyThrows
-    public void init(@NotNull String basePackage) {
+    public void init(@NotNull String basePackage, ClassLoader classLoader) {
         provider.enable();
 
         reflections = new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage(basePackage))
+                .setUrls(ClasspathHelper.forPackage(basePackage, classLoader))
                 .setScanners(Scanners.ConstructorsAnnotated)
         );
 
